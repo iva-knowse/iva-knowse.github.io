@@ -1,12 +1,37 @@
 <html>
-
+<head>
     <style>
+        * {background-color:black}
         p {
-            font-family: "Comic Sans MS";
+            color:white
+        }
+        .spin-container {
+            perspective: 800px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .spin-3d {
+            animation: spin3d 4s infinite linear;
+            transform-style: preserve-3d;
+        }
+        @keyframes spin3d {
+            from {
+                transform: rotateY(0deg);
+            }
+            to {
+                transform: rotateY(360deg);
+            }
         }
     </style>
+</head>
+<body>
 
     <p>hello</p>
     <p>this is my website</p>
+    
+    <div class="spin-container">
+        <img src="assets/frisk.jpg" width="100" class="spin-3d">
+    </div>
 
+</body>
 </html>
