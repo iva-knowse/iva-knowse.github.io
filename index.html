@@ -17,6 +17,13 @@
             animation: spin3d 2s infinite linear;
             transform-style: preserve-3d;
         }
+        .button {
+            color:white;
+            border-radius: 5px;
+            border-color:white;
+            height:50px;
+            background-color: rgb(221, 97, 205);
+        }
         @keyframes spin3d {
             from {
                 transform: rotateY(0deg);
@@ -25,6 +32,13 @@
                 transform: rotateY(360deg);
             }
         }
+        .button:hover {
+            background-color: rgb(233, 116, 217);
+        }
+        .button:active {
+            background-color: rgb(204, 83, 158);
+        }
+
     </style>
 </head>
 <body>
@@ -35,7 +49,16 @@
     <div class="spin-container">
         <img src="assets/freeky.png" width="100" class="spin-3d">
     </div>
-    <a href="index.html"><br><br>heres my website</a>
+    <a href="index.html"><br><br>heres my website<br><br></a>
 
+    <button class="button" type="button" onclick="playosu()">button that plays the osu click sound</button>
+    <audio id="click" src="assets/click.wav" preload="auto"></audio>
+    <script>
+        function playosu() {
+            var sound = document.getElementById("click");
+            sound.currentTime = 0;
+            sound.play();
+        }
+    </script>
 </body>
 </html>
