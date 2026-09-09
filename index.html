@@ -3,7 +3,9 @@
     <style>
         * {background-color:black}
         p {
-            color:white
+            color:white;
+            padding-left:10px;
+            padding-top:10px;
         }
         .spin-container {
             perspective: 800px;
@@ -11,7 +13,7 @@
             margin-top: 20px;
         }
         .spin-3d {
-            animation: spin3d 4s infinite linear;
+            animation: spin3d 2s infinite linear;
             transform-style: preserve-3d;
         }
         @keyframes spin3d {
@@ -26,8 +28,8 @@
 </head>
 <body>
 
-    <p>hello</p>
-    <p>this is my website</p>
+    <p>hello<br>this is my website<br>i hope you like it as much as i do
+    </p>
     
     <div class="spin-container">
         <img src="assets/frisk.jpg" width="100" class="spin-3d">
