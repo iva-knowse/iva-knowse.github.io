@@ -1,0 +1,48 @@
+<head>
+    <style>
+            body {
+                background-color: black;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+            }
+
+            p {
+                color: white;
+                padding-top: 10px;
+            }
+
+            #timer {
+                color: white;
+                padding-top: 10px;
+                font-size: 40px;
+            }
+    </style>
+    <title>the p countdown</title>
+</head>
+
+
+<body>
+    <p style="font-size: 40px; font-style: italic;">the p countdown</p>
+    <p>you can probably guess what this is for<br><br><br></p>
+
+    <p id="timer">00:00:00:00:000</p>
+    <script>
+        const target = new Date("2027-10-27T00:00:00+05:30").getTime();
+        const display = document.getElementById("timer");
+
+        setInterval(() => {
+            const diff = target - Date.now();
+            if (diff <= 0) return display.innerText = "00:00:00:00:000";
+            const dd = Math.floor(diff / 86400000).toString().padStart(2, '0');
+            const hh = Math.floor((diff % 86400000) / 3600000).toString().padStart(2, '0');
+            const mm = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+            const ss = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+            const ms = Math.floor(diff % 1000).toString().padStart(3, '0');
+            display.innerText = `${dd} days ${hh} hours ${mm} minutes ${ss} seconds ${ms} milliseconds`;
+        }, 40);
+    </script>
+
+    <img id="dvd" src="../assets/p.png" alt="">
+    <script src="../dvd.js"></script>
+</body>

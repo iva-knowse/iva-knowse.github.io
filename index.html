@@ -2,12 +2,43 @@
 <head>
     <title>my very own website</title>
     <style>
-        * {background-color:black}
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+        }
         p {
             color:white;
             padding-left:10px;
             padding-top:10px;
         }
+        
+        .sidebar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 200px;
+            height: 100%;
+            background-color: black;
+            border-left: 2px solid white;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+        .sidebar-link {
+            color: rgb(221, 97, 205);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .sidebar-link:hover {
+            color: rgb(233, 116, 217);
+            text-decoration: underline;
+        }
+
+        .main-content {
+            margin-right: 220px; 
+        }
+
         .spin-container {
             perspective: 800px;
             display: inline-block;
@@ -43,29 +74,37 @@
 </head>
 <body>
 
-    <p>hello<br>this is my website<br>i hope you like it as much as i do
-    </p>
-    <p>heres my buddy freeky</p>
-    <div class="spin-container">
-        <img src="assets/freeky.png" width="100" class="spin-3d">
+    <div class="main-content">
+        <p>hello<br>this is my website<br>i hope you like it as much as i do
+        </p>
+        <p>heres my buddy freeky</p>
+        <div style="padding-left: 10px;" class="spin-container">
+            <img src="assets/freeky.png" width="100" class="spin-3d">
+        </div>
+        <a href="javascript:location.reload();"><br><br>heres my website<br><br><br></a>
+
+        <button class="button" type="button" onclick="playosu()">button that plays the sound</button>
+        <audio id="click" src="assets/click.wav" preload="auto"></audio>
+        <script>
+            function playosu() {
+                var sound = document.getElementById("click");
+                sound.currentTime = 0;
+                sound.play();
+            }
+        </script>
+        <a href="javascript:location.reload();"><br>heres my website<br></a>
+        <a href="javascript:location.reload();">heres my website<br></a>
+        <a href="javascript:location.reload();">heres my website<br></a>
+        <a href="javascript:location.reload();">heres my website<br></a>
+        <a href="javascript:location.reload();">heres my website<br><br><br><br></a>
     </div>
-    <a href="javascript:location.reload();"><br><br>heres my website<br><br></a>
 
-    <button class="button" type="button" onclick="playosu()">button that plays the osu click sound</button>
-    <audio id="click" src="assets/click.wav" preload="auto"></audio>
-    <script>
-        function playosu() {
-            var sound = document.getElementById("click");
-            sound.currentTime = 0;
-            sound.play();
-        }
-    </script>
-    <a href="javascript:location.reload();"><br>heres my website<br></a>
-    <a href="javascript:location.reload();">heres my website<br></a>
-    <a href="javascript:location.reload();">heres my website<br></a>
-    <a href="javascript:location.reload();">heres my website<br></a>
-    <a href="javascript:location.reload();">heres my website<br></a>
+    <div class="sidebar">
+        <p style="padding-left: 0;">Links</p>
+        <a href="gizmos/index.html" class="sidebar-link">gizmos →</a>
+    </div>
 
+    <img id="dvd" src="assets/dot.png" alt="">
     <script src="dvd.js"></script>
 </body>
 </html>

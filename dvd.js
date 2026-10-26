@@ -1,8 +1,7 @@
 (() => {
   "use strict";
 
-  const dvd = new Image();
-  dvd.src = "assets/dot.png";
+const dvd = document.getElementById("dvd");
 
   let x = 0;
   let y = 0;
@@ -16,12 +15,6 @@
   let isDragging = false;
   let dragOffsetX = 0;
   let dragOffsetY = 0;
-
-  const activeCollisions = new Set();
-
-  const invertedElements = new WeakSet();
-
-  const originalFilters = new WeakMap();
 
   document.body.style.margin = "0";
 
@@ -54,45 +47,6 @@
       a.top < b.bottom &&
       a.bottom > b.top
     );
-  }
-
-  function toggleInvert(element) {
-    if (!element || element === dvd) {
-      return;
-    }
-
-    if (
-      element === document.documentElement ||
-      element === document.body
-    ) {
-      return;
-    }
-
-    if (!originalFilters.has(element)) {
-      originalFilters.set(
-        element,
-        getComputedStyle(element).filter
-      );
-    }
-
-    if (invertedElements.has(element)) {
-      element.style.filter =
-        originalFilters.get(element);
-
-      invertedElements.delete(element);
-    } else {
-      const original =
-        originalFilters.get(element);
-
-      if (original && original !== "none") {
-        element.style.filter =
-          `invert(1) ${original}`;
-      } else {
-        element.style.filter = "invert(1)";
-      }
-
-      invertedElements.add(element);
-    }
   }
 
   function getTextRects(root) {
@@ -344,27 +298,8 @@
 
     const colliders = collectColliders();
 
-    const touchedThisStep = new Set();
-
     for (const collider of colliders) {
-      if (collideWith(collider.rect)) {
-        touchedThisStep.add(collider.element);
-      }
-    }
-    for (const element of touchedThisStep) {
-      if (!activeCollisions.has(element)) {
-        toggleInvert(element);
-      }
-    }
-
-    for (const element of activeCollisions) {
-      if (!touchedThisStep.has(element)) {
-        activeCollisions.delete(element);
-      }
-    }
-
-    for (const element of touchedThisStep) {
-      activeCollisions.add(element);
+      collideWith(collider.rect);
     }
 
     collideWithViewport();
@@ -409,8 +344,6 @@
 
     dragOffsetX = event.clientX - x;
     dragOffsetY = event.clientY - y;
-
-    activeCollisions.clear();
 
     dvd.setPointerCapture(event.pointerId);
   });
@@ -464,8 +397,6 @@
       dvd.releasePointerCapture(event.pointerId);
     }
 
-    activeCollisions.clear();
-
     lastTime = performance.now();
   }
 
@@ -479,24 +410,26 @@
     stopDragging
   );
 
+function startDVD() {
+  x = Math.max(
+    0,
+    (window.innerWidth - dvd.naturalWidth) / 2
+  );
 
-  dvd.addEventListener("load", () => {
-    x =
-      Math.max(
-        0,
-        (window.innerWidth - dvd.naturalWidth) / 2
-      );
+  y = Math.max(
+    0,
+    (window.innerHeight - dvd.naturalHeight) / 2
+  );
 
-    y =
-      Math.max(
-        0,
-        (window.innerHeight - dvd.naturalHeight) / 2
-      );
+  lastTime = performance.now();
+  requestAnimationFrame(update);
+}
 
-    lastTime = performance.now();
-
-    requestAnimationFrame(update);
-  });
+if (dvd.complete && dvd.naturalWidth > 0) {
+  startDVD();
+} else {
+  dvd.addEventListener("load", startDVD, { once: true });
+}
 
   window.addEventListener("resize", () => {
     const width = dvd.naturalWidth;
